@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:aplicacao_mobile/components/background_wave_clipper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
@@ -30,17 +31,17 @@ class SearchPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          ClipPath(
-            clipper: BackgroundWaveClipper(),
+          ClipPath( // <- esse é o responsável por chamar o component wave_clipper
+            clipper: BackgroundWaveClipper(), // <- inicio da copia
             child: Center(
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: 300,
+                height: 300, // <- sugiro que deixe essa altura, mas se houver necessidade pode mudar
                 decoration:
                     const BoxDecoration(color: Color.fromARGB(255, 2, 40, 70)),
               ),
             ),
-          ),
+          ), // <- fim da copia
           Container(
             child: const Text(
               "Login",
@@ -93,7 +94,9 @@ class SearchPage extends StatelessWidget {
             width: 339,
             height: 63,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                print("funciona");
+              },
               child: const Text(
                 "Login",
                 style: TextStyle(
@@ -102,9 +105,11 @@ class SearchPage extends StatelessWidget {
                     fontFamily: "Poppins",
                     color: Colors.white),
               ),
-              style: const ButtonStyle(
-                backgroundColor:
-                    MaterialStatePropertyAll(Color.fromARGB(255, 2, 40, 70)),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                backgroundColor: const Color.fromARGB(255, 2, 40, 70),
               ),
             ),
           ),
@@ -138,26 +143,3 @@ class SearchPage extends StatelessWidget {
   }
 }
 
-class BackgroundWaveClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    var path = Path();
-
-    final p0 = size.height * 220;
-    path.lineTo(0.0, p0);
-
-    final controlPoint = Offset(size.width * -11, size.height);
-    final endPoint = Offset(size.width, size.height / 2);
-    path.quadraticBezierTo(
-        controlPoint.dx, controlPoint.dy, endPoint.dx, endPoint.dy);
-
-    path.lineTo(size.width, 0.0);
-    path.close();
-
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) =>
-      oldClipper != this;
-}
