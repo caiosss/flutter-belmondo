@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:aplicacao_mobile/components/forum_button.dart';
 
 void main() => runApp(const BottomNavigationBarExampleApp());
 
@@ -57,7 +58,14 @@ class _BottomNavigationBarExampleState
           IconButton(onPressed: () {}, icon: Icon(Icons.home))
         ],
       ),
-      body: Center(child: opcoes.elementAt(itemSelecionado)),
+      body: Center(
+              child: Column(children: [
+                Row( children:[ForumButton("Forum 1", () {}), ForumButton("Forum 2", () {}),] ),
+                Row( children:[ForumButton("Forum 2", () {}), ForumButton("Forum 3", () {}),] ),
+
+              ],)
+
+            ),
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.lightBlue,
           type: BottomNavigationBarType.fixed,
