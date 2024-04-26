@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:aplicacao_mobile/components/forum_button.dart';
+import 'package:aplicacao_mobile/Telas/login.dart';
 
 void main() => runApp(const BottomNavigationBarExampleApp());
 
@@ -33,6 +34,10 @@ class _BottomNavigationBarExampleState
     });
   }
 
+  void toLoginPage(){
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +53,20 @@ class _BottomNavigationBarExampleState
           padding: const MaterialStatePropertyAll<EdgeInsets>(
               EdgeInsets.symmetric(horizontal: 16.0)),
         ),
-        actions: <Widget>[IconButton(onPressed: () {}, icon: Icon(Icons.home))],
+        actions: <Widget>[
+          ElevatedButton(
+            onPressed: toLoginPage, 
+            child: Text(
+              "Sign in",
+              style: TextStyle(color: Colors.white),
+            ), 
+            style: ElevatedButton.styleFrom(
+              backgroundColor:const Color.fromARGB(255, 2, 40, 70),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+              ),
+
+            )
+            ],
       ),
       body: Center(
           child: Column(
