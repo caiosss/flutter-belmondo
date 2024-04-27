@@ -1,10 +1,9 @@
 import 'dart:ui';
 
+import 'package:aplicacao_mobile/Telas/home_page.dart';
 import 'package:aplicacao_mobile/components/background_wave_clipper.dart';
+import 'package:aplicacao_mobile/data/Usuario.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
 void main() => runApp(const App());
 
@@ -14,7 +13,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Bunny Search SearchBar Demo',
+        title: 'Login',
         theme: ThemeData(
           primarySwatch: Colors.blueGrey,
         ),
@@ -28,15 +27,33 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    late String email;
+    late String password;
+    late Usuario user; // <- por favor ALGUEM CRIA A LOGICA PRA ESSA COISA LINDA!!!
+
+    void registro() {
+      print(password);
+      print(email);
+    }
+
+    void toHomePage() {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => BottomNavigationBarExample()));
+    }
+
     return Scaffold(
       body: Column(
         children: [
-          ClipPath( // <- esse é o responsável por chamar o component wave_clipper
+          ClipPath(
+            // <- esse é o responsável por chamar o component wave_clipper
             clipper: BackgroundWaveClipper(), // <- inicio da copia
             child: Center(
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: 300, // <- sugiro que deixe essa altura, mas se houver necessidade pode mudar
+                height:
+                    300, // <- sugiro que deixe essa altura, mas se houver necessidade pode mudar
                 decoration:
                     const BoxDecoration(color: Color.fromARGB(255, 2, 40, 70)),
               ),
@@ -69,11 +86,15 @@ class SearchPage extends StatelessWidget {
           Container(
             width: 344,
             height: 65,
-            child: const TextField(
-                decoration: InputDecoration(
-                    labelText: "E-mail",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(40))))),
+            child: TextField(
+              decoration: const InputDecoration(
+                  labelText: "E-mail",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(40)))),
+              onChanged: (text) {
+                email = text;
+              },
+            ),
           ),
           const SizedBox(
             height: 55,
@@ -81,11 +102,16 @@ class SearchPage extends StatelessWidget {
           Container(
             width: 344,
             height: 65,
-            child: const TextField(
-                decoration: InputDecoration(
-                    labelText: "Senha",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(40))))),
+            child: TextField(
+              decoration: const InputDecoration(
+                  labelText: "Senha",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(40)))),
+              onChanged: (text) {
+                password = text;
+              },
+              obscureText: true,
+            ),
           ),
           const SizedBox(
             height: 38,
@@ -94,9 +120,7 @@ class SearchPage extends StatelessWidget {
             width: 339,
             height: 63,
             child: ElevatedButton(
-              onPressed: () {
-                print("funciona");
-              },
+              onPressed: toHomePage,
               child: const Text(
                 "Login",
                 style: TextStyle(
@@ -142,4 +166,3 @@ class SearchPage extends StatelessWidget {
     );
   }
 }
-

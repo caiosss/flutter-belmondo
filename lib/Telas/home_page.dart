@@ -1,3 +1,4 @@
+import 'package:aplicacao_mobile/Telas/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:aplicacao_mobile/components/forum_button.dart';
 import 'package:aplicacao_mobile/Telas/login.dart';
@@ -38,33 +39,36 @@ class _BottomNavigationBarExampleState
     Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage()));
   }
 
+  void toSettingsPage(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))),
         toolbarHeight: 130,
         backgroundColor: Colors.lightBlue,
-        leading: Icon(Icons.person),
-        title: SearchBar(
+        leading: const Icon(Icons.person),
+        title: const SearchBar(
           keyboardType: TextInputType.text,
           hintText: "Pesquise aqui",
-          padding: const MaterialStatePropertyAll<EdgeInsets>(
+          padding: MaterialStatePropertyAll<EdgeInsets>(
               EdgeInsets.symmetric(horizontal: 16.0)),
         ),
         actions: <Widget>[
           ElevatedButton(
             onPressed: toLoginPage, 
-            child: Text(
-              "Sign in",
-              style: TextStyle(color: Colors.white),
-            ), 
             style: ElevatedButton.styleFrom(
               backgroundColor:const Color.fromARGB(255, 2, 40, 70),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
               ),
-
+            child: const Text(
+              "Sign in",
+              style: TextStyle(color: Colors.white),
+            ), 
             )
             ],
       ),
@@ -104,15 +108,15 @@ class _BottomNavigationBarExampleState
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.lightBlue,
         type: BottomNavigationBarType.fixed,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: 'Configurações'),
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil',),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home',),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Configurações'),
         ],
         selectedItemColor: Colors.black,
         onTap: tapItem,
         currentIndex: itemSelecionado,
+
       ),
     );
   }
