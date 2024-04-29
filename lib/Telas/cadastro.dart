@@ -28,13 +28,6 @@ class _TelaCadastroState extends State<TelaCadastro> {
   late String senha;
   late String email;
 
-  /*void toLoginPage(){
-     Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SearchPage()));
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

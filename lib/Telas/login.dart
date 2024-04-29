@@ -1,7 +1,9 @@
 import 'dart:ui';
-
+import 'package:aplicacao_mobile/Telas/settings.dart';
+import 'package:aplicacao_mobile/Telas/cadastro.dart';
 import 'package:aplicacao_mobile/Telas/home_page.dart';
 import 'package:aplicacao_mobile/components/background_wave_clipper.dart';
+import 'package:aplicacao_mobile/components/dialog_box.dart';
 import 'package:aplicacao_mobile/data/Usuario.dart';
 import 'package:flutter/material.dart';
 
@@ -95,6 +97,7 @@ class SearchPage extends StatelessWidget {
               onChanged: (text) {
                 email = text;
               },
+              
             ),
           ),
           const SizedBox(
@@ -110,6 +113,9 @@ class SearchPage extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(40)))),
               onChanged: (text) {
                 password = text;
+                if(password == ""){
+                  showDialog(context: context, builder: (context) => DialogBox("tuamae"),);
+                }
               },
               obscureText: true,
             ),
@@ -136,31 +142,50 @@ class SearchPage extends StatelessWidget {
                 ),
                 backgroundColor: const Color.fromARGB(255, 2, 40, 70),
               ),
+            
             ),
           ),
           const SizedBox(
             height: 65,
           ),
           Container(
-            child: const Text(
-              "Esqueceu a senha?",
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w300,
-                  fontFamily: "Poppins"),
-            ),
+            child: Builder(
+              builder:(context) => TextButton(
+                child: Text(
+                  "Esqueceu a senha?", 
+                  style: TextStyle(
+                    fontSize: 13.2,
+                    fontWeight: FontWeight.w300,
+                    fontFamily: 'Poppins'
+                    )
+                  ),
+                  onPressed:() {Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Settings()));
+            
+          }, ) ,)
           ),
           const SizedBox(
             height: 5,
           ),
           Container(
-            child: const Text(
-              "Cadastre-se!",
-              style: TextStyle(
-                  fontSize: 14.8,
-                  fontWeight: FontWeight.w300,
-                  fontFamily: "Poppins"),
-            ),
+            child: Builder(
+              builder:(context) => TextButton(
+                child: Text(
+                  "Cadastre-se!", 
+                  style: TextStyle(
+                    fontSize: 13.2,
+                    fontWeight: FontWeight.w300,
+                    fontFamily: 'Poppins'
+                    )
+                  ),
+                  onPressed:() {Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => TelaCadastro()));
+            
+          }, ) ,)
           ),
         ],
       ),

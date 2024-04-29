@@ -27,7 +27,7 @@ class BottomNavigationBarExample extends StatefulWidget {
 
 class _BottomNavigationBarExampleState
     extends State<BottomNavigationBarExample> {
-  int itemSelecionado = 0;
+  int itemSelecionado = 1;
 
    
   void tapItem(int index){
