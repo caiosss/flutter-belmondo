@@ -29,9 +29,14 @@ class _BottomNavigationBarExampleState
     extends State<BottomNavigationBarExample> {
   int itemSelecionado = 0;
 
-  void tapItem(int index) {
-    setState(() {
-      itemSelecionado = index;
+   
+  void tapItem(int index){
+    
+    setState((){
+        itemSelecionado = index;
+        if(itemSelecionado == 2){
+          toSettingsPage();
+        }
     });
   }
 
@@ -111,7 +116,7 @@ class _BottomNavigationBarExampleState
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil',),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home',),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Configurações'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Configurações',),
         ],
         selectedItemColor: Colors.black,
         onTap: tapItem,

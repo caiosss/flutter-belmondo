@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(const App());
 
+
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
@@ -150,7 +151,7 @@ class SearchPage extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 24,
+            height: 5,
           ),
           Container(
             child: const Text(

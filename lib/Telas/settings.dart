@@ -2,6 +2,7 @@ import 'package:aplicacao_mobile/components/icone_botao.dart';
 import 'package:flutter/material.dart';
 import 'package:aplicacao_mobile/components/information_container.dart';
 import 'package:aplicacao_mobile/components/settings_container.dart';
+import 'package:aplicacao_mobile/Telas/home_page.dart';
 
 void main() => runApp(const SettingsApp());
 
@@ -25,6 +26,11 @@ class Settings extends StatefulWidget {
 }
 
 class SettingsState extends State<Settings> {
+
+  void toHomePage() {
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>(BottomNavigationBarExample())));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +41,7 @@ class SettingsState extends State<Settings> {
         backgroundColor: const Color.fromARGB(255, 2, 40, 70),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
-          onPressed: () {},
+          onPressed: toHomePage,
         ),
         title: const Text(
           "Settings",

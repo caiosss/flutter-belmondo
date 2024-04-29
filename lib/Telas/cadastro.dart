@@ -2,7 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:aplicacao_mobile/components/background_wave_clipper.dart';
 import 'package:aplicacao_mobile/Telas/login.dart';
 
-void main () => runApp(TelaCadastro());
+void main () => runApp(const TelaCadastro());
+
+class TelaCadastroApp extends StatelessWidget{
+    const TelaCadastroApp({super.key});
+
+    @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: TelaCadastro(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
 class TelaCadastro extends StatefulWidget {
   const TelaCadastro({super.key});
 
@@ -14,6 +27,14 @@ class _TelaCadastroState extends State<TelaCadastro> {
   late String nome;
   late String senha;
   late String email;
+
+  /*void toLoginPage(){
+     Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SearchPage()));
+  }*/
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -38,7 +59,12 @@ class _TelaCadastroState extends State<TelaCadastro> {
           Text("Cadastro",style: TextStyle(fontSize: 37.1, fontFamily: 'Poppins', fontWeight: FontWeight.bold, color: Color.fromARGB(255, 5, 10, 48) ),textAlign: TextAlign.center ),
           SizedBox(
             height: 10,
-          ),Row(mainAxisAlignment: MainAxisAlignment.center,children: [Text("Já está registrado?", style: TextStyle(fontSize: 13.2,fontWeight: FontWeight.w300,fontFamily: 'Poppins'),),TextButton(child: Text("Logue aqui", style:TextStyle(fontSize: 13.2,fontWeight: FontWeight.w300,fontFamily: 'Poppins')),onPressed: (){})]), SizedBox(
+          ),Row(mainAxisAlignment: MainAxisAlignment.center,children: [Text("Já está registrado?", style: TextStyle(fontSize: 13.2,fontWeight: FontWeight.w300,fontFamily: 'Poppins'),),Builder(builder:(context) => TextButton(child: Text("Logue aqui", style:TextStyle(fontSize: 13.2,fontWeight: FontWeight.w300,fontFamily: 'Poppins')),onPressed:() {Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SearchPage()));
+            
+          }, ) ,)]), SizedBox(
             height: 10,
           ),
           /**/
