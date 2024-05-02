@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const Profile());
+  runApp(const ProfileApp());
 }
 
+class ProfileApp extends StatelessWidget {
+  const ProfileApp({super.key});
+
+   @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: Profile(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+
+
+}
 class Profile extends StatefulWidget {
   const Profile({super.key});
 
