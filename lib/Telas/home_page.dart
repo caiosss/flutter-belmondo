@@ -1,3 +1,4 @@
+import 'package:aplicacao_mobile/Telas/perfil.dart';
 import 'package:aplicacao_mobile/Telas/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:aplicacao_mobile/components/forum_button.dart';
@@ -29,23 +30,29 @@ class _BottomNavigationBarExampleState
     extends State<BottomNavigationBarExample> {
   int itemSelecionado = 1;
 
-   
-  void tapItem(int index){
-    
-    setState((){
-        itemSelecionado = index;
-        if(itemSelecionado == 2){
-          toSettingsPage();
-        }
+  void tapItem(int index) {
+    setState(() {
+      itemSelecionado = index;
+      if (itemSelecionado == 0) {
+        toProfile();
+      } else if (itemSelecionado == 2) {
+        toSettingsPage();
+      }
     });
   }
 
-  void toLoginPage(){
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage()));
+  void toLoginPage() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => SearchPage()));
   }
 
-  void toSettingsPage(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));
+  void toProfile() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));
+  }
+
+  void toSettingsPage() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Settings()));
   }
 
   @override
@@ -65,17 +72,18 @@ class _BottomNavigationBarExampleState
         ),
         actions: <Widget>[
           ElevatedButton(
-            onPressed: toLoginPage, 
+            onPressed: toLoginPage,
             style: ElevatedButton.styleFrom(
-              backgroundColor:const Color.fromARGB(255, 2, 40, 70),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-              ),
+              backgroundColor: const Color.fromARGB(255, 2, 40, 70),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+            ),
             child: const Text(
               "Sign in",
               style: TextStyle(color: Colors.white),
-            ), 
-            )
-            ],
+            ),
+          )
+        ],
       ),
       body: Center(
           child: Column(
@@ -114,14 +122,22 @@ class _BottomNavigationBarExampleState
         backgroundColor: Colors.lightBlue,
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil',),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home',),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Configurações',),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Perfil',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Configurações',
+          ),
         ],
         selectedItemColor: Colors.black,
         onTap: tapItem,
         currentIndex: itemSelecionado,
-
       ),
     );
   }

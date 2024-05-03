@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:aplicacao_mobile/Telas/settings.dart';
 import 'package:aplicacao_mobile/Telas/cadastro.dart';
 import 'package:aplicacao_mobile/Telas/home_page.dart';
@@ -8,7 +7,6 @@ import 'package:aplicacao_mobile/data/Usuario.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const App());
-
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -30,20 +28,22 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late String email;
-    late String password;
-    late Usuario user; // <- por favor ALGUEM CRIA A LOGICA PRA ESSA COISA LINDA!!!
-
-    void registro() {
-      print(password);
-      print(email);
-    }
+    String email = "";
+    String password = "";
+    Usuario user = Usuario(email,
+        password); // <- por favor ALGUEM CRIA A LOGICA PRA ESSA COISA LINDA!!!
 
     void toHomePage() {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => BottomNavigationBarExample()));
+      if (!user.email.contains("@") || password.isEmpty) {
+        showDialog(
+            context: context,
+            builder: (context) => DialogBox("Email ou Senha inválido!"));
+      } else {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => BottomNavigationBarExample()));
+      }
     }
 
     return Scaffold(
@@ -95,9 +95,8 @@ class SearchPage extends StatelessWidget {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(40)))),
               onChanged: (text) {
-                email = text;
+                user.email = text;
               },
-              
             ),
           ),
           const SizedBox(
@@ -112,10 +111,7 @@ class SearchPage extends StatelessWidget {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(40)))),
               onChanged: (text) {
-                password = text;
-                if(password == ""){
-                  showDialog(context: context, builder: (context) => DialogBox("tuamae"),);
-                }
+                user.password = text;
               },
               obscureText: true,
             ),
@@ -142,51 +138,42 @@ class SearchPage extends StatelessWidget {
                 ),
                 backgroundColor: const Color.fromARGB(255, 2, 40, 70),
               ),
-            
             ),
           ),
           const SizedBox(
             height: 65,
           ),
           Container(
-            child: Builder(
-              builder:(context) => TextButton(
-                child: Text(
-                  "Esqueceu a senha?", 
+              child: Builder(
+            builder: (context) => TextButton(
+              child: Text("Esqueceu a senha?",
                   style: TextStyle(
-                    fontSize: 13.2,
-                    fontWeight: FontWeight.w300,
-                    fontFamily: 'Poppins'
-                    )
-                  ),
-                  onPressed:() {Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Settings()));
-            
-          }, ) ,)
-          ),
+                      fontSize: 13.2,
+                      fontWeight: FontWeight.w300,
+                      fontFamily: 'Poppins')),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Settings()));
+              },
+            ),
+          )),
           const SizedBox(
             height: 5,
           ),
           Container(
-            child: Builder(
-              builder:(context) => TextButton(
-                child: Text(
-                  "Cadastre-se!", 
+              child: Builder(
+            builder: (context) => TextButton(
+              child: Text("Cadastre-se!",
                   style: TextStyle(
-                    fontSize: 13.2,
-                    fontWeight: FontWeight.w300,
-                    fontFamily: 'Poppins'
-                    )
-                  ),
-                  onPressed:() {Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => TelaCadastro()));
-            
-          }, ) ,)
-          ),
+                      fontSize: 13.2,
+                      fontWeight: FontWeight.w300,
+                      fontFamily: 'Poppins')),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => TelaCadastro()));
+              },
+            ),
+          )),
         ],
       ),
     );
