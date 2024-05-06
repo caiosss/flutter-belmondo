@@ -62,7 +62,7 @@ class _BottomNavigationBarExampleState
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))),
         toolbarHeight: 130,
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: Color.fromARGB(255, 2, 40, 70),
         leading: const Icon(Icons.person),
         title: const SearchBar(
           keyboardType: TextInputType.text,
@@ -74,7 +74,7 @@ class _BottomNavigationBarExampleState
           ElevatedButton(
             onPressed: toLoginPage,
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color.fromARGB(255, 2, 40, 70),
+              backgroundColor: Color.fromARGB(255, 41, 122, 185),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
             ),
@@ -119,7 +119,7 @@ class _BottomNavigationBarExampleState
         ],
       )),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: Color.fromARGB(255, 2, 40, 70),
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -135,7 +135,7 @@ class _BottomNavigationBarExampleState
             label: 'Configurações',
           ),
         ],
-        selectedItemColor: Colors.black,
+        selectedItemColor: Colors.white,
         onTap: tapItem,
         currentIndex: itemSelecionado,
       ),

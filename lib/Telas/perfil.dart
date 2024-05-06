@@ -69,7 +69,7 @@ class ProfileState extends State<Profile> {
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.lightBlue,
+          backgroundColor: Color.fromARGB(255, 2, 40, 70),
           type: BottomNavigationBarType.fixed,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -85,7 +85,7 @@ class ProfileState extends State<Profile> {
               label: 'Configurações',
             ),
           ],
-          selectedItemColor: Colors.black,
+          selectedItemColor: Colors.white,
           onTap: tapItem,
           currentIndex: itemSelecionado,
         ));

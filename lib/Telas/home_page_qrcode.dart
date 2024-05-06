@@ -49,6 +49,7 @@ class HomePageState extends State<HomePage> {
   }
 
   readQrCode() async {
+      print("entrou");
       String code = await FlutterBarcodeScanner.scanBarcode(
         "#FFFFFF",
         "Cancelar",
@@ -65,7 +66,7 @@ class HomePageState extends State<HomePage> {
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))),
         toolbarHeight: 130,
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: Color.fromARGB(255, 2, 40, 70),
         leading: const Icon(Icons.person),
         title: const SearchBar(
           keyboardType: TextInputType.text,
@@ -77,6 +78,9 @@ class HomePageState extends State<HomePage> {
               IconButton(
                 icon: Icon(Icons.qr_code),
                 onPressed: readQrCode,
+                style: const ButtonStyle(
+                    iconColor: MaterialStatePropertyAll(Colors.white),
+                ),
               )
             ],
       ),
@@ -114,14 +118,14 @@ class HomePageState extends State<HomePage> {
         ],
       )),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: Color.fromARGB(255, 2, 40, 70),
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil',),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home',),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Configurações',),
         ],
-        selectedItemColor: Colors.black,
+        selectedItemColor: Colors.white,
         onTap: tapItem,
         currentIndex: itemSelecionado,
 

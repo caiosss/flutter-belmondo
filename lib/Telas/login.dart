@@ -1,3 +1,4 @@
+import 'package:aplicacao_mobile/Telas/home_page_qrcode.dart';
 import 'package:aplicacao_mobile/Telas/settings.dart';
 import 'package:aplicacao_mobile/Telas/cadastro.dart';
 import 'package:aplicacao_mobile/Telas/home_page.dart';
@@ -34,7 +35,7 @@ class SearchPage extends StatelessWidget {
         password); // <- por favor ALGUEM CRIA A LOGICA PRA ESSA COISA LINDA!!!
 
     void toHomePage() {
-      if (!user.email.contains("@") || password.isEmpty) {
+      if (!user.email.contains("@") || user.password.isEmpty) {
         showDialog(
             context: context,
             builder: (context) => DialogBox("Email ou Senha inválido!"));
@@ -42,7 +43,7 @@ class SearchPage extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => BottomNavigationBarExample()));
+                builder: (context) => HomePage()));
       }
     }
 

@@ -42,6 +42,7 @@ class SettingsState extends State<Settings> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
           onPressed: toHomePage,
+          style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white)),
         ),
         title: const Text(
           "Settings",
