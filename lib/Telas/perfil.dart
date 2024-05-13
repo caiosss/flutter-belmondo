@@ -124,7 +124,7 @@ class ProfileState extends State<Profile> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                IconeBotao(const Icon(Icons.add_call), () {})
+                IconeBotao(const Icon(Icons.edit), () {})
               ],
             ),
             const SizedBox(
