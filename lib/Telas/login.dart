@@ -1,10 +1,12 @@
 import 'package:aplicacao_mobile/Telas/home_page_qrcode.dart';
 import 'package:aplicacao_mobile/Telas/settings.dart';
 import 'package:aplicacao_mobile/Telas/cadastro.dart';
+import 'package:aplicacao_mobile/Telas/home_page.dart';
 import 'package:aplicacao_mobile/components/background_wave_clipper.dart';
 import 'package:aplicacao_mobile/components/dialog_box.dart';
 import 'package:aplicacao_mobile/data/Usuario.dart';
 import 'package:flutter/material.dart';
+import 'package:aplicacao_mobile/Models/database_service.dart';
 
 void main() => runApp(const App());
 
