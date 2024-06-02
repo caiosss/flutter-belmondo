@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:aplicacao_mobile/components/background_wave_clipper.dart';
 import 'package:aplicacao_mobile/Telas/login.dart';
+import 'package:aplicacao_mobile/Models/database_service.dart';
+import 'package:aplicacao_mobile/Models/user_model.dart';
 
 void main () => runApp(const TelaCadastro());
 
@@ -27,6 +29,9 @@ class _TelaCadastroState extends State<TelaCadastro> {
   late String nome;
   late String senha;
   late String email;
+  final dbService = DatabaseService(); 
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +72,9 @@ class _TelaCadastroState extends State<TelaCadastro> {
             height: 65,
             child: TextFormField(
               keyboardType: TextInputType.text,
+              onChanged: (text) {
+                nome = text;
+              },
               decoration: const InputDecoration(
                   labelText: "Nome",
                   border: OutlineInputBorder(
@@ -81,6 +89,9 @@ class _TelaCadastroState extends State<TelaCadastro> {
             height: 65,
             child: TextFormField(
               keyboardType: TextInputType.emailAddress,
+              onChanged: (text){
+                email = text;
+              },
               decoration: const InputDecoration(
                   labelText: "E-mail",
                   border: OutlineInputBorder(
@@ -95,6 +106,9 @@ class _TelaCadastroState extends State<TelaCadastro> {
             width: 344,
             height: 65,
             child: TextField(
+              onChanged: (text){
+                senha = text;
+              },
               decoration: const InputDecoration(
                   labelText: "Senha",
                   border: OutlineInputBorder(
@@ -109,7 +123,12 @@ class _TelaCadastroState extends State<TelaCadastro> {
             margin: EdgeInsets.fromLTRB(50, 0, 50, 0),
               width: 339,
               height: 63,
-              child: ElevatedButton(onPressed: () {  }, 
+              child: ElevatedButton(onPressed: () {  
+                var user = UserModel(id: "0", name: nome, email: email, password: senha, isAdm: false);// falta a logica do id e do adm;
+                dbService.initDatabase(); // Perguntar ao belmondo quando se usa tal proeza ou se não precisa usar
+                dbService.insertUser(user);
+                Navigator.of(context).pop();
+              }, 
               child: const Text("Cadastrar-se",
               style: TextStyle(
                 fontSize: 26.1,

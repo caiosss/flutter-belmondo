@@ -3,7 +3,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'user_model.dart';
 
-class DatabaseService{
+class DatabaseService {
   static final DatabaseService _databaseService = DatabaseService._internal();
   factory DatabaseService() => _databaseService;
   DatabaseService._internal();
@@ -17,7 +17,7 @@ class DatabaseService{
 
   Future<Database> initDatabase() async {
     final getDirectory = await getApplicationDocumentsDirectory();
-    String path = getDirectory.path + '/Users.db'; //ajustar para o nosso banco de dados
+    String path = getDirectory.path + '/Users.db'; 
     log(path);
     return await openDatabase(path, onCreate: _onCreate, version: 1);
   }
