@@ -7,6 +7,7 @@ import 'package:aplicacao_mobile/components/dialog_box.dart';
 import 'package:aplicacao_mobile/data/Usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:aplicacao_mobile/Models/database_service.dart';
+import 'package:aplicacao_mobile/Models/user_model.dart';
 
 void main() => runApp(const App());
 
@@ -28,23 +29,52 @@ class App extends StatelessWidget {
 class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);
 
+
+
   @override
   Widget build(BuildContext context) {
     String email = "";
     String password = "";
+    final dbService = DatabaseService(); 
+
     Usuario user = Usuario(email,
         password); // <- por favor ALGUEM CRIA A LOGICA PRA ESSA COISA LINDA!!!
 
-    void toHomePage() {
+    void toHomePage() async {
       if (!user.email.contains("@") || user.password.isEmpty) {
         showDialog(
             context: context,
             builder: (context) => DialogBox("Email ou Senha inválido!"));
       } else {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => HomePage()));
+        Future<List<UserModel>> usersFuture = dbService.getUsers();
+        List<UserModel> users = await usersFuture;
+        bool found = false;
+        int index = 0;
+        for(int i = 0; i < users.length; i++){
+            if(users.elementAt(i).email == email){
+              found = true;
+              index = i;
+            }
+        }
+        if(found){
+          if(users.elementAt(index).email == email && users.elementAt(index).password == password){
+               Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomePage())
+                );
+          } else {
+            showDialog(
+              context: context,
+              builder: (context) => DialogBox("Email ou Senha inválido!"));
+          }
+        } else {
+          showDialog(
+              context: context,
+              builder: (context) => DialogBox("Usuário não encontrado"));
+        }
+        
+     
       }
     }
 
