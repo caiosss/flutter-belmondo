@@ -1,3 +1,6 @@
+import 'package:aplicacao_mobile/Models/database_service.dart';
+import 'package:aplicacao_mobile/Models/user_model.dart';
+import 'package:aplicacao_mobile/Telas/home_page_qrcode.dart';
 import 'package:aplicacao_mobile/components/icone_botao.dart';
 import 'package:flutter/material.dart';
 import 'package:aplicacao_mobile/components/information_container.dart';
@@ -12,23 +15,47 @@ class SettingsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Settings(),
+      home: Settings(userId: '',),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class Settings extends StatefulWidget {
-  const Settings({super.key});
+  final String userId;
+
+  const Settings({super.key, required this.userId});
 
   @override
   State<Settings> createState() => SettingsState();
 }
 
 class SettingsState extends State<Settings> {
+   String name = '';
+   String email = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserData();
+  }
+
+  void _fetchUserData() async {
+      final dbService = DatabaseService();
+      List<UserModel> users = await dbService.getUsers();
+      for(var user in users){
+        if(user.id == widget.userId){
+          setState(() {
+            name = user.name;
+            email = user.email;
+          });
+          break;
+        }
+      }
+  }
 
   void toHomePage() {
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>(BottomNavigationBarExample())));
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>(HomePage(userId: widget.userId))));
   }
 
   @override
@@ -71,8 +98,8 @@ class SettingsState extends State<Settings> {
                 ),
                 backgroundColor: const Color.fromARGB(255, 2, 40, 70),
               ),
-              const Text(
-                "Nome",
+               Text(
+                name,
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
@@ -82,7 +109,7 @@ class SettingsState extends State<Settings> {
               const SizedBox(
                 height: 6.0,
               ),
-              const Text("melhorapp@jafeito.com"),
+              Text(email),
               const SizedBox(
                 height: 32.0,
               ),

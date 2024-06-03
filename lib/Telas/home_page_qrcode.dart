@@ -2,6 +2,7 @@ import 'package:aplicacao_mobile/Telas/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:aplicacao_mobile/components/forum_button.dart';
 import 'package:aplicacao_mobile/Telas/login.dart';
+import 'package:aplicacao_mobile/Telas/perfil.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 void main() => runApp(const HomePageApp());
@@ -12,14 +13,16 @@ class HomePageApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: HomePage(),
+      home: HomePage(userId: '',),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final userId;
+
+  const HomePage({super.key, required this.userId, });
 
   @override
   State<HomePage> createState() => HomePageState();
@@ -33,6 +36,9 @@ class HomePageState extends State<HomePage> {
     
     setState((){
         itemSelecionado = index;
+        if(itemSelecionado == 0){
+          toProfile();
+        }
         if(itemSelecionado == 2){
           toSettingsPage();
         }
@@ -44,8 +50,12 @@ class HomePageState extends State<HomePage> {
     Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage()));
   }
 
+  void toProfile() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Profile(userId: widget.userId)));
+  }
+
   void toSettingsPage(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Settings(userId: widget.userId)));
   }
 
   readQrCode() async {

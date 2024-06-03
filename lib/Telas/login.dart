@@ -60,9 +60,8 @@ class SearchPage extends StatelessWidget {
                Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => HomePage())
+                      builder: (context) => HomePage(userId: users.elementAt(index).id))
                 );
-                //Ver com o belmondo como passar o id desse usuario para ser carregado nas outras paginas
           } else {
             showDialog(
               context: context,
@@ -184,8 +183,7 @@ class SearchPage extends StatelessWidget {
                       fontWeight: FontWeight.w300,
                       fontFamily: 'Poppins')),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Settings()));
+                
               },
             ),
           )),

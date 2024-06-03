@@ -123,9 +123,13 @@ class _TelaCadastroState extends State<TelaCadastro> {
             margin: EdgeInsets.fromLTRB(50, 0, 50, 0),
               width: 339,
               height: 63,
-              child: ElevatedButton(onPressed: () {
+              child: ElevatedButton(onPressed: () async {
                 var user;
-                user = UserModel(id: "0", name: nome, email: email, password: senha, isAdm: email.contains("@unifor.br")?true:false);
+                var id;
+                Future<List<UserModel>> usersFuture = dbService.getUsers();
+                List<UserModel> users = await usersFuture;
+                id = users.length + 1;
+                user = UserModel(id: id.toString(), name: nome, email: email, password: senha, isAdm: email.contains("@unifor.br")?true:false);
                 dbService.insertUser(user);
                 Navigator.of(context).pop();
               }, 

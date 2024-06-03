@@ -1,6 +1,8 @@
 import 'dart:ui';
-
+import 'package:aplicacao_mobile/Models/database_service.dart'; 
+import 'package:aplicacao_mobile/Models/user_model.dart'; 
 import 'package:aplicacao_mobile/Telas/home_page.dart';
+import 'package:aplicacao_mobile/Telas/home_page_qrcode.dart';
 import 'package:aplicacao_mobile/Telas/settings.dart';
 import 'package:aplicacao_mobile/components/forum_button.dart';
 import 'package:aplicacao_mobile/components/icone_botao.dart';
@@ -18,14 +20,16 @@ class ProfileApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Profile(),
+      home: Profile(userId: ''),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class Profile extends StatefulWidget {
-  const Profile({super.key});
+  final String userId;
+
+  const Profile({super.key, required this.userId});
 
   @override
   State<Profile> createState() => ProfileState();
@@ -34,8 +38,31 @@ class Profile extends StatefulWidget {
 class ProfileState extends State<Profile> {
   final double coverHeight = 274;
   final double profileHeight = 144;
-
+  String name = "";  // Variável para armazenar o nome do usuário
   int itemSelecionado = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserName();
+  }
+
+  void _fetchUserName() async {
+    final dbService = DatabaseService();
+    List<UserModel> users = await dbService.getUsers();
+    for (var user in users) {
+      if (user.id == widget.userId) {
+        setState(() {
+          name = user.name;  // Atualiza o nome do usuário no estado
+        });
+        break;
+      }
+    }
+  }
+
+  void editUserName() async {
+      //adicionar um TextField para receber um nome e usar a edit user do dbService e adicionar ele
+  }
 
   void tapItem(int index) {
     setState(() {
@@ -50,45 +77,50 @@ class ProfileState extends State<Profile> {
 
   void toSettingsPage() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Settings()));
+      context,
+      MaterialPageRoute(builder: (context) => Settings(userId: widget.userId))
+    );
   }
 
   void toHomePage() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => BottomNavigationBarExample()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage(userId: widget.userId,))
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            buildTop(),
-            buildContent(),
-          ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Color.fromARGB(255, 2, 40, 70),
-          type: BottomNavigationBarType.fixed,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Perfil',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Configurações',
-            ),
-          ],
-          selectedItemColor: Colors.white,
-          onTap: tapItem,
-          currentIndex: itemSelecionado,
-        ));
+      body: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          buildTop(),
+          buildContent(),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Color.fromARGB(255, 2, 40, 70),
+        type: BottomNavigationBarType.fixed,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Perfil',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Configurações',
+          ),
+        ],
+        selectedItemColor: Colors.white,
+        onTap: tapItem,
+        currentIndex: itemSelecionado,
+      ),
+    );
   }
 
   Widget buildTop() {
@@ -109,84 +141,74 @@ class ProfileState extends State<Profile> {
   }
 
   Widget buildContent() => Container(
-        padding: EdgeInsets.symmetric(horizontal: 48),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+    padding: EdgeInsets.symmetric(horizontal: 48),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  "Nome",
-                  style: TextStyle(
-                    fontSize: 38,
-                    fontFamily: "Poppins",
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                IconeBotao(const Icon(Icons.edit), () {})
-              ],
+            Text(
+              name,  // Exibe o nome do usuário
+              style: const TextStyle(
+                fontSize: 38,
+                fontFamily: "Poppins",
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            const SizedBox(
-              height: 38,
-            ),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  "Forúns: ",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontFamily: "Poppins",
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                ForumButton("Forum 1", () {}),
-                const SizedBox(
-                  width: 27,
-                ),
-                ForumButton("Forum 2", () {}),
-              ],
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Row(
-              children: [
-                ForumButton("Forum 3", () {}),
-                const SizedBox(
-                  width: 27,
-                ),
-                ForumButton("Forum 4", () {}),
-              ],
+            IconeBotao(const Icon(Icons.edit), editUserName)
+          ],
+        ),
+        const SizedBox(height: 38),
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              "Forúns: ",
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: "Poppins",
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
-      );
+        const SizedBox(height: 20),
+        Row(
+          children: [
+            ForumButton("Forum 1", () {}),
+            const SizedBox(width: 27),
+            ForumButton("Forum 2", () {}),
+          ],
+        ),
+        const SizedBox(height: 30),
+        Row(
+          children: [
+            ForumButton("Forum 3", () {}),
+            const SizedBox(width: 27),
+            ForumButton("Forum 4", () {}),
+          ],
+        ),
+      ],
+    ),
+  );
 
   Widget buildCover() => Container(
-        color: Color.fromARGB(255, 2, 40, 70),
-        height: coverHeight,
-      );
+    color: Color.fromARGB(255, 2, 40, 70),
+    height: coverHeight,
+  );
 
   Widget buildAvatar() => CircleAvatar(
-        radius: 90,
-        backgroundColor: Color.fromARGB(255, 4, 112, 194),
-        child: CircleAvatar(
-          radius: 86,
-          backgroundColor: Colors.lightBlue[100],
-          child: const Icon(
-            Icons.person,
-            size: 120,
-            color: Colors.black,
-          ),
-        ),
-      );
+    radius: 90,
+    backgroundColor: Color.fromARGB(255, 4, 112, 194),
+    child: CircleAvatar(
+      radius: 86,
+      backgroundColor: Colors.lightBlue[100],
+      child: const Icon(
+        Icons.person,
+        size: 120,
+        color: Colors.black,
+      ),
+    ),
+  );
 }

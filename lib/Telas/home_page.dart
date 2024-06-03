@@ -47,12 +47,12 @@ class _BottomNavigationBarExampleState
   }
 
   void toProfile() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Profile(userId: '')));
   }
 
   void toSettingsPage() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Settings()));
+        context, MaterialPageRoute(builder: (context) => Settings(userId: '')));
   }
 
   @override
