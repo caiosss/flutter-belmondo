@@ -1,6 +1,5 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() => runApp(const ForumApp());
 
@@ -27,6 +26,10 @@ class ForumState extends State<Forum> {
   final double coverHeight = 274;
   final double forumHeight = 144;
   final double forumWidth = 180;
+
+  void teste(){
+    print("teste123");
+  }
 
   int itemSelecionado = 0;
 
@@ -77,14 +80,14 @@ class ForumState extends State<Forum> {
 
   Widget buildContent() => Container(
         padding: const EdgeInsets.symmetric(horizontal: 48),
-        child: const Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Fórum #1",
+                  "Teste123",
                   style: TextStyle(
                     fontSize: 38,
                     fontFamily: "Poppins",
@@ -97,7 +100,7 @@ class ForumState extends State<Forum> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "O Fórum tal possui penis largos",
+                  "O Fórum tal possui...",
                   style: TextStyle(
                     fontSize: 15,
                     fontFamily: "Poppins",
@@ -106,9 +109,21 @@ class ForumState extends State<Forum> {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [],
+            SizedBox(
+              height: 430,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  child:const TextField(
+                decoration: InputDecoration(
+                  labelText: "Digite..",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(40)))),
+              ),
+                ),
+              ],
             ),
           ],
         ),

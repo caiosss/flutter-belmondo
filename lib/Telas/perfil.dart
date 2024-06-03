@@ -178,15 +178,15 @@ class ProfileState extends State<Profile> {
 
   Widget buildAvatar() => CircleAvatar(
         radius: 90,
+        backgroundColor: Color.fromARGB(255, 4, 112, 194),
         child: CircleAvatar(
           radius: 86,
           backgroundColor: Colors.lightBlue[100],
-          child: Icon(
+          child: const Icon(
             Icons.person,
             size: 120,
             color: Colors.black,
           ),
         ),
-        backgroundColor: Color.fromARGB(255, 4, 112, 194),
       );
 }

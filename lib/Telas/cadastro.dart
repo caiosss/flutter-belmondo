@@ -125,13 +125,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
               height: 63,
               child: ElevatedButton(onPressed: () {
                 var user;
-                if(email.contains("@unifor.com")){//tem que fazer uma verificação melhor de email kkkk
-                   user = UserModel(id: "0", name: nome, email: email, password: senha, isAdm: true);
-                } else {
-                   user = UserModel(id: "0", name: nome, email: email, password: senha, isAdm: false);// falta a logica do id
-                }
-
-                dbService.initDatabase(); // Perguntar ao belmondo quando se usa tal proeza ou se não precisa usar
+                user = UserModel(id: "0", name: nome, email: email, password: senha, isAdm: email.contains("@unifor.br")?true:false);
                 dbService.insertUser(user);
                 Navigator.of(context).pop();
               }, 

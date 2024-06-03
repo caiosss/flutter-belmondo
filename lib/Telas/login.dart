@@ -37,8 +37,7 @@ class SearchPage extends StatelessWidget {
     String password = "";
     final dbService = DatabaseService(); 
 
-    Usuario user = Usuario(email,
-        password); // <- por favor ALGUEM CRIA A LOGICA PRA ESSA COISA LINDA!!!
+    Usuario user = Usuario(email, password); // <- por favor ALGUEM CRIA A LOGICA PRA ESSA COISA LINDA!!!
 
     void toHomePage() async {
       if (!user.email.contains("@") || user.password.isEmpty) {
@@ -63,6 +62,7 @@ class SearchPage extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (context) => HomePage())
                 );
+                //Ver com o belmondo como passar o id desse usuario para ser carregado nas outras paginas
           } else {
             showDialog(
               context: context,
