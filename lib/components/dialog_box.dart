@@ -11,7 +11,13 @@ class DialogBox extends StatelessWidget {
     return CupertinoAlertDialog(
       title: Text(text),
       actions: [
-        CupertinoDialogAction(child: Text("Ok"),isDefaultAction: true,),
+        CupertinoDialogAction(
+          child: Text("Ok"),
+          isDefaultAction: true,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ],
     );
   }

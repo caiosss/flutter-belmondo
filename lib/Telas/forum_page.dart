@@ -16,7 +16,8 @@ class ForumApp extends StatelessWidget {
 }
 
 class Forum extends StatefulWidget {
-  const Forum({super.key});
+  final forumId;
+  const Forum({super.key, this.forumId});
 
   @override
   State<Forum> createState() => ForumState();
@@ -26,8 +27,8 @@ class ForumState extends State<Forum> {
   final double coverHeight = 274;
   final double forumHeight = 144;
   final double forumWidth = 180;
-
-  void teste(){
+  
+  void teste() {
     print("teste123");
   }
 
@@ -116,12 +117,13 @@ class ForumState extends State<Forum> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  child:const TextField(
-                decoration: InputDecoration(
-                  labelText: "Digite..",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(40)))),
-              ),
+                  child: const TextField(
+                    decoration: InputDecoration(
+                        labelText: "Digite..",
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(40)))),
+                  ),
                 ),
               ],
             ),

@@ -13,7 +13,9 @@ class HomePageApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: HomePage(userId: '',),
+      home: HomePage(
+        userId: '',
+      ),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -22,7 +24,10 @@ class HomePageApp extends StatelessWidget {
 class HomePage extends StatefulWidget {
   final userId;
 
-  const HomePage({super.key, required this.userId, });
+  const HomePage({
+    super.key,
+    required this.userId,
+  });
 
   @override
   State<HomePage> createState() => HomePageState();
@@ -31,43 +36,67 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   int itemSelecionado = 1;
   String ticket = "";
-   
-  void tapItem(int index){
-    
-    setState((){
-        itemSelecionado = index;
-        if(itemSelecionado == 0){
-          toProfile();
-        }
-        if(itemSelecionado == 2){
-          toSettingsPage();
-        }
+  List<ForumButton> foruns = List.empty();
+
+  void tapItem(int index) {
+    setState(() {
+      itemSelecionado = index;
+      if (itemSelecionado == 0) {
+        toProfile();
+      }
+      if (itemSelecionado == 2) {
+        toSettingsPage();
+      }
     });
   }
 
-
-  void toLoginPage(){
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage()));
+  void toLoginPage() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => SearchPage()));
   }
 
   void toProfile() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Profile(userId: widget.userId)));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Profile(userId: widget.userId)));
   }
 
-  void toSettingsPage(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Settings(userId: widget.userId)));
+  void toSettingsPage() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Settings(userId: widget.userId)));
   }
 
   readQrCode() async {
-      print("entrou");
-      String code = await FlutterBarcodeScanner.scanBarcode(
-        "#FFFFFF",
-        "Cancelar",
-        false,
-        ScanMode.QR,
-      );
-      setState(() => ticket = code != "-1" ? code : "Não validado");
+    print("entrou");
+    String code = await FlutterBarcodeScanner.scanBarcode(
+      "#FFFFFF",
+      "Cancelar",
+      false,
+      ScanMode.QR,
+    );
+    setState(() => ticket = code != "-1" ? code : "Não validado");
   }
+
+//   Widget imprimirForuns(List<ForumButton> foruns) {
+//   return Column(
+//     children: [
+//         Row(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             foruns.elementAt(1),
+//             const SizedBox(width: 33.0),
+//             if (1 + 1 < foruns.length) foruns.elementAt(1 + 1),
+//           ],
+//         ),
+//         const SizedBox(height: 50.0),
+//        for (int i = 0; i < foruns.length; i += 2) {
+//        },
+//     ],
+//   );
+// }
 
   @override
   Widget build(BuildContext context) {
@@ -85,60 +114,69 @@ class HomePageState extends State<HomePage> {
               EdgeInsets.symmetric(horizontal: 16.0)),
         ),
         actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.qr_code),
-                onPressed: readQrCode,
-                style: const ButtonStyle(
-                    iconColor: MaterialStatePropertyAll(Colors.white),
-                ),
-              )
-            ],
+          IconButton(
+            icon: Icon(Icons.qr_code),
+            onPressed: readQrCode,
+            style: const ButtonStyle(
+              iconColor: MaterialStatePropertyAll(Colors.white),
+            ),
+          )
+        ],
       ),
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            ForumButton("Forum 1", () {}),
+          
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              ForumButton("Forum 1", () {}),
+              const SizedBox(
+                width: 33.0,
+              ),
+              ForumButton("Forum 2", () {}),
             const SizedBox(
-              width: 33.0,
+              height: 50.0,
             ),
-            ForumButton("Forum 2", () {}),
-          ]),
-          const SizedBox(
-            height: 50.0,
-          ),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            ForumButton("Forum 3", () {}),
+            ]),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              ForumButton("Forum 3", () {}),
+              const SizedBox(
+                width: 33.0,
+              ),
+              ForumButton("Forum 4", () {}),
             const SizedBox(
-              width: 33.0,
+              height: 50.0,
             ),
-            ForumButton("Forum 4", () {}),
-          ]),
-          const SizedBox(
-            height: 50.0,
-          ),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            ForumButton("Forum 5", () {}),
-            const SizedBox(
-              width: 33.0,
-            ),
-            ForumButton("Forum 6", () {}),
-          ]),
+            ]),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              ForumButton("Forum 5", () {}),
+              const SizedBox(
+                width: 33.0,
+              ),
+              ForumButton("Forum 6", () {}),
+            ]),
         ],
       )),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Color.fromARGB(255, 2, 40, 70),
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil',),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home',),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Configurações',),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Perfil',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Configurações',
+          ),
         ],
         selectedItemColor: Colors.white,
         onTap: tapItem,
         currentIndex: itemSelecionado,
-
       ),
     );
   }
