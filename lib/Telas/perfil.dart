@@ -4,6 +4,7 @@ import 'package:aplicacao_mobile/Models/user_model.dart';
 import 'package:aplicacao_mobile/Telas/home_page.dart';
 import 'package:aplicacao_mobile/Telas/home_page_qrcode.dart';
 import 'package:aplicacao_mobile/Telas/settings.dart';
+import 'package:aplicacao_mobile/components/edit_dialog_box.dart';
 import 'package:aplicacao_mobile/components/forum_button.dart';
 import 'package:aplicacao_mobile/components/icone_botao.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,31 +39,37 @@ class Profile extends StatefulWidget {
 class ProfileState extends State<Profile> {
   final double coverHeight = 274;
   final double profileHeight = 144;
-  String name = "";  // Variável para armazenar o nome do usuário
+  String name = "";  
+  String id = "";  
+  String email = ""; 
+  String senha = ""; 
+  bool adm = false;
   int itemSelecionado = 0;
 
   @override
   void initState() {
     super.initState();
-    _fetchUserName();
+    _fetchUserData();
   }
 
-  void _fetchUserName() async {
+  void _fetchUserData() async {
     final dbService = DatabaseService();
     List<UserModel> users = await dbService.getUsers();
     for (var user in users) {
       if (user.id == widget.userId) {
         setState(() {
-          name = user.name;  // Atualiza o nome do usuário no estado
+          name = user.name;
+          id = user.id;
+          email =user.email;
+          senha = user.password;
+          adm = user.isAdm;
         });
         break;
       }
     }
   }
 
-  void editUserName() async {
-      //adicionar um TextField para receber um nome e usar a edit user do dbService e adicionar ele
-  }
+  
 
   void tapItem(int index) {
     setState(() {
@@ -156,7 +163,11 @@ class ProfileState extends State<Profile> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            IconeBotao(const Icon(Icons.edit), editUserName)
+            IconeBotao(const Icon(Icons.edit), () {
+               showDialog(
+                context: context, 
+               builder: (context) => EditarDadoDialog("nome", name, email, senha, adm, id));
+            })
           ],
         ),
         const SizedBox(height: 38),

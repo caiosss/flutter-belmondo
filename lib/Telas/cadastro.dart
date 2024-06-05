@@ -3,6 +3,9 @@ import 'package:aplicacao_mobile/components/background_wave_clipper.dart';
 import 'package:aplicacao_mobile/Telas/login.dart';
 import 'package:aplicacao_mobile/Models/database_service.dart';
 import 'package:aplicacao_mobile/Models/user_model.dart';
+import 'package:aplicacao_mobile/components/dialog_box.dart';
+import 'package:aplicacao_mobile/components/edit_dialog_box.dart';
+
 
 void main () => runApp(const TelaCadastro());
 
@@ -129,9 +132,19 @@ class _TelaCadastroState extends State<TelaCadastro> {
                 Future<List<UserModel>> usersFuture = dbService.getUsers();
                 List<UserModel> users = await usersFuture;
                 id = users.length + 1;
-                user = UserModel(id: id.toString(), name: nome, email: email, password: senha, isAdm: email.contains("@unifor.br")?true:false);
-                dbService.insertUser(user);
-                Navigator.of(context).pop();
+                if(senha.length < 8){
+                      showDialog(
+                        context: context,
+                        builder: (context) => DialogBox("A senha precisa ter mais de 8 caracteres!"));
+                }else if(!email.contains("@")) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => DialogBox("Insira um email válido!"));
+                } else {
+                  user = UserModel(id: id.toString(), name: nome, email: email, password: senha, isAdm: email.contains("@unifor.br")?true:false);
+                  dbService.insertUser(user);
+                  Navigator.of(context).pop();
+                }
               }, 
               child: const Text("Cadastrar-se",
               style: TextStyle(
