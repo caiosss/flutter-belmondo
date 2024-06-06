@@ -20,7 +20,7 @@ class UserModel{
         name: data['name'],
         email: data['email'],
         password: data['password'],
-        isAdm: data['isAdm']
+        isAdm: data['isAdm'] is bool ? data['isAdm'] : data['isAdm'] == 1,
     );
 
     Map<String, dynamic> toMap() =>
@@ -28,7 +28,7 @@ class UserModel{
       'name': name, 
       'email': email, 
       'password': password, 
-      'isAdm': isAdm };
+      'isAdm': isAdm ? 1 : 0,};
 
 
 }

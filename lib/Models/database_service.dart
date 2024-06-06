@@ -54,4 +54,10 @@ class DatabaseService {
       var data = await db.rawDelete('DELETE FROM Users WHERE id=?', [id]);
       log('deleted $data');
   }
+   Future<bool> emailExists(String email) async {
+    final db = await _databaseService.database;
+    var result = await db.rawQuery('SELECT * FROM Users WHERE email=?', [email]);
+    return result.isNotEmpty;
+  }
+  
 }
