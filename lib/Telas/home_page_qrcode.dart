@@ -38,6 +38,7 @@ class HomePageState extends State<HomePage> {
   int itemSelecionado = 1;
   String ticket = "";
   List<ForumButton> foruns = List.empty();
+  
 
   void tapItem(int index) {
     setState(() {
@@ -70,7 +71,7 @@ class HomePageState extends State<HomePage> {
             builder: (context) => Settings(userId: widget.userId)));
   }
 
-  readQrCode() async {
+  readQrCode() async {// Quando der alguem testa se isso ta funcionando
     print("entrou");
     String code = await FlutterBarcodeScanner.scanBarcode(
       "#FFFFFF",
@@ -132,32 +133,47 @@ class HomePageState extends State<HomePage> {
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               ForumButton("Forum 1", () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ForumApp()));// Não sei pq krls não está exigindo os parametros da tela
+                    MaterialPageRoute(builder: (context) => Forum(forumId: 1, userId: widget.userId,)));// Falta a imagem do forum
               }),
               const SizedBox(
                 width: 33.0,
               ),
-              ForumButton("Forum 2", () {}),
+              ForumButton("Forum 2", () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Forum(forumId: 2, userId: widget.userId,)));// Falta a imagem do forum
+              }),
             const SizedBox(
               height: 50.0,
             ),
             ]),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              ForumButton("Forum 3", () {}),
+              ForumButton("Forum 3", () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Forum(forumId: 3, userId: widget.userId,)));// Falta a imagem do forum
+              }),
               const SizedBox(
                 width: 33.0,
               ),
-              ForumButton("Forum 4", () {}),
+              ForumButton("Forum 4", () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Forum(forumId: 4, userId: widget.userId,)));// Falta a imagem do forum
+              }),
             const SizedBox(
               height: 50.0,
             ),
             ]),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              ForumButton("Forum 5", () {}),
+              ForumButton("Forum 5", () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Forum(forumId: 5, userId: widget.userId,)));// Falta a imagem do forum
+              }),
               const SizedBox(
                 width: 33.0,
               ),
-              ForumButton("Forum 6", () {}),
+              ForumButton("Forum 6", () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Forum(forumId: 6, userId: widget.userId,)));// Falta a imagem do forum
+              }),
             ]),
         ],
       )),

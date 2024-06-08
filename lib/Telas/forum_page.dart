@@ -147,6 +147,14 @@ class ForumState extends State<Forum> {
                 return ListTile(
                 title: Text(comentarios[index].userName),
                 subtitle: Text(comentarios[index].content),
+                trailing: comentarios[index].userName == userName // isso é um botão de delete no comentario e somente o dono pode apagar ele por isso a comparação
+                 ? IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    comentDbService.deleteComent(comentarios[index].id);
+                    setState(() {});
+                  },
+                ) : null
               );
               }
             });
