@@ -1,3 +1,4 @@
+import 'package:aplicacao_mobile/Telas/forum_page.dart';
 import 'package:aplicacao_mobile/Telas/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:aplicacao_mobile/components/forum_button.dart';
@@ -129,7 +130,10 @@ class HomePageState extends State<HomePage> {
         children: [
           
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              ForumButton("Forum 1", () {}),
+              ForumButton("Forum 1", () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ForumApp()));// Não sei pq krls não está exigindo os parametros da tela
+              }),
               const SizedBox(
                 width: 33.0,
               ),

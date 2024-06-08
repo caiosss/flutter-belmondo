@@ -13,7 +13,7 @@ class ForumApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Forum(),
+      home: Forum(forumId: 1, userId: 1),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -22,7 +22,9 @@ class ForumApp extends StatelessWidget {
 class Forum extends StatefulWidget {
   final forumId;
   final userId;
-  const Forum({super.key, this.forumId, this.userId});
+  //final imgLink;
+  const Forum({super.key, this.forumId, this.userId,}); // receber a imagem a ser carregada via parametro
+  //const Forum({super.key, this.forumId, this.userId, this.imgLink}); recebendo a imagem a ser carregada via parametro
 
   @override
   State<Forum> createState() => ForumState();
@@ -37,7 +39,7 @@ class ForumState extends State<Forum> {
   final userDbService = UserDatabaseService();
   String userName = "";
 
-  
+  //Falta achar Local onde a imagem será exibida
   void teste() {
     print("teste123");
   }
@@ -65,13 +67,14 @@ class ForumState extends State<Forum> {
         List<ComentModel> comentarios = await comentDbService.getComents();
         id = comentarios.length + 1;
         var coment = ComentModel(forumId: widget.forumId, content: comentario, userName: userName, id: id.toString());
-        await comentDbService.insertComent(coment);
+        comentDbService.insertComent(coment);
+        setState(() {});
       }
   }
 
   void controleOnsubmit(comentario){
     comentar(comentario).then((_) {
-      comentario = "";
+      this.comentario = "";
     });
   }
   
@@ -123,6 +126,35 @@ class ForumState extends State<Forum> {
         ),
       );
 
+  Widget buildCommentSectiom() {
+    return FutureBuilder<List<ComentModel>>(
+      future: comentDbService.getComents(), 
+      builder: (context, snapshot){
+         if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return const Center(child: Text('Erro ao carregar comentários'));
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(child: Text('Nenhum comentário nesse Forum'));
+        } else {
+          List<ComentModel> comentarios = snapshot.data!;
+          return ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: comentarios.length,
+            itemBuilder:(context, index) {
+              if(comentarios[index].forumId == widget.forumId){
+                return ListTile(
+                title: Text(comentarios[index].userName),
+                subtitle: Text(comentarios[index].content),
+              );
+              }
+            });
+        } 
+      });
+
+  }
+
   Widget buildContent() => Container(
         padding: const EdgeInsets.symmetric(horizontal: 48),
         child: Column(
@@ -132,7 +164,7 @@ class ForumState extends State<Forum> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Teste123",
+                  "Teste123", 
                   style: TextStyle(
                     fontSize: 38,
                     fontFamily: "Poppins",
@@ -144,14 +176,7 @@ class ForumState extends State<Forum> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "O Fórum tal possui...",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontFamily: "Poppins",
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                buildCommentSectiom()
               ],
             ),
             SizedBox(
