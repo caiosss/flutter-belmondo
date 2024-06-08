@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:aplicacao_mobile/Models/database_service.dart'; 
+import 'package:aplicacao_mobile/Models/user_database_service.dart'; 
 import 'package:aplicacao_mobile/Models/user_model.dart'; 
 import 'package:aplicacao_mobile/Telas/home_page.dart';
 import 'package:aplicacao_mobile/Telas/home_page_qrcode.dart';
@@ -53,7 +53,7 @@ class ProfileState extends State<Profile> {
   }
 
   void _fetchUserData() async {
-    final dbService = DatabaseService();
+    final dbService = UserDatabaseService();
     List<UserModel> users = await dbService.getUsers();
     for (var user in users) {
       if (user.id == widget.userId) {

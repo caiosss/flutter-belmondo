@@ -4,9 +4,10 @@ import 'package:aplicacao_mobile/Telas/cadastro.dart';
 import 'package:aplicacao_mobile/Telas/home_page.dart';
 import 'package:aplicacao_mobile/components/background_wave_clipper.dart';
 import 'package:aplicacao_mobile/components/dialog_box.dart';
+import 'package:aplicacao_mobile/components/edit_dialog_box.dart';
 import 'package:aplicacao_mobile/data/Usuario.dart';
 import 'package:flutter/material.dart';
-import 'package:aplicacao_mobile/Models/database_service.dart';
+import 'package:aplicacao_mobile/Models/user_database_service.dart';
 import 'package:aplicacao_mobile/Models/user_model.dart';
 
 void main() => runApp(const App());
@@ -31,10 +32,11 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dbService = DatabaseService();
+    final dbService = UserDatabaseService();
 
     String email = "";
     String password = "";
+
 
     void toHomePage() async {
       if (!email.contains('@') || password.isEmpty) {
@@ -160,7 +162,7 @@ class SearchPage extends StatelessWidget {
                       fontWeight: FontWeight.w300,
                       fontFamily: 'Poppins')),
               onPressed: () {
-                // Handle forgot password
+                    
               },
             ),
           ),

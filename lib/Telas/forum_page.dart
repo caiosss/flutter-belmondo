@@ -1,3 +1,7 @@
+import 'package:aplicacao_mobile/Models/coment_database_service.dart';
+import 'package:aplicacao_mobile/Models/user_database_service.dart';
+import 'package:aplicacao_mobile/Models/coment_model.dart';
+import 'package:aplicacao_mobile/Models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -17,7 +21,8 @@ class ForumApp extends StatelessWidget {
 
 class Forum extends StatefulWidget {
   final forumId;
-  const Forum({super.key, this.forumId});
+  final userId;
+  const Forum({super.key, this.forumId, this.userId});
 
   @override
   State<Forum> createState() => ForumState();
@@ -27,10 +32,49 @@ class ForumState extends State<Forum> {
   final double coverHeight = 274;
   final double forumHeight = 144;
   final double forumWidth = 180;
+  String comentario = "";
+  final comentDbService = ComentDatabaseService();
+  final userDbService = UserDatabaseService();
+  String userName = "";
+
   
   void teste() {
     print("teste123");
   }
+
+  @override
+  void initState(){
+    super.initState();
+    getUserName();
+  }
+
+  Future<void> getUserName() async {
+      List<UserModel> usuarios = await userDbService.getUsers();
+      for(int i = 0; i < usuarios.length; i++){
+          if(usuarios.elementAt(i).id == widget.userId){
+            userName = usuarios.elementAt(i).name;
+          }
+      }
+  }
+
+  Future<void> comentar(String comentario) async {
+      if(comentario.isEmpty){
+        return;
+      } else {
+        var id;
+        List<ComentModel> comentarios = await comentDbService.getComents();
+        id = comentarios.length + 1;
+        var coment = ComentModel(forumId: widget.forumId, content: comentario, userName: userName, id: id.toString());
+        await comentDbService.insertComent(coment);
+      }
+  }
+
+  void controleOnsubmit(comentario){
+    comentar(comentario).then((_) {
+      comentario = "";
+    });
+  }
+  
 
   int itemSelecionado = 0;
 
@@ -117,12 +161,20 @@ class ForumState extends State<Forum> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  child: const TextField(
+                  child: TextField(
                     decoration: InputDecoration(
                         labelText: "Digite..",
                         border: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(40)))),
+                    onChanged: (text) {
+                        comentario = text;
+                    },
+
+                    onSubmitted: controleOnsubmit,
+                   
+                  
+                    
                   ),
                 ),
               ],

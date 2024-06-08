@@ -3,10 +3,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'user_model.dart';
 
-class DatabaseService {
-  static final DatabaseService _databaseService = DatabaseService._internal();
-  factory DatabaseService() => _databaseService;
-  DatabaseService._internal();
+class UserDatabaseService {
+  static final UserDatabaseService _databaseService = UserDatabaseService._internal();
+  factory UserDatabaseService() => _databaseService;
+  UserDatabaseService._internal();
   static Database? _database;
 
   Future<Database> get database async{

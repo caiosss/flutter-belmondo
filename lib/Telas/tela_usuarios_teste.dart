@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:aplicacao_mobile/Models/database_service.dart';
+import 'package:aplicacao_mobile/Models/user_database_service.dart';
 import 'package:aplicacao_mobile/Models/user_model.dart';
 
 
@@ -14,7 +14,7 @@ class _UserListScreenState extends State<UserListScreen> {
   @override
   void initState() {
     super.initState();
-    _userList = DatabaseService().getUsers();
+    _userList = UserDatabaseService().getUsers();
   }
 
   @override

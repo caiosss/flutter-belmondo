@@ -2,7 +2,7 @@ import 'package:aplicacao_mobile/Telas/tela_usuarios_teste.dart';
 import 'package:flutter/material.dart';
 import 'package:aplicacao_mobile/components/background_wave_clipper.dart';
 import 'package:aplicacao_mobile/Telas/login.dart';
-import 'package:aplicacao_mobile/Models/database_service.dart';
+import 'package:aplicacao_mobile/Models/user_database_service.dart';
 import 'package:aplicacao_mobile/Models/user_model.dart';
 import 'package:aplicacao_mobile/components/dialog_box.dart';
 import 'package:aplicacao_mobile/components/edit_dialog_box.dart';
@@ -33,7 +33,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
   String nome = '';
   String senha = '';
   String email = '';
-  final dbService = DatabaseService(); 
+  final dbService = UserDatabaseService(); 
 
   @override
   Widget build(BuildContext context) {

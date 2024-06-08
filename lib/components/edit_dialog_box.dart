@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:aplicacao_mobile/Models/database_service.dart';
+import 'package:aplicacao_mobile/Models/user_database_service.dart';
 import 'package:aplicacao_mobile/Models/user_model.dart';
 
 
@@ -21,8 +21,9 @@ class EditarDadoDialog extends StatefulWidget {
 
 class _EditarDadoDialogState extends State<EditarDadoDialog> {
   String _novoAtributo = '';
-  final dbService = DatabaseService();
+  final dbService = UserDatabaseService();
 
+ 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(

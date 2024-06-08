@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:aplicacao_mobile/Models/database_service.dart';
+import 'package:aplicacao_mobile/Models/user_database_service.dart';
 import 'package:aplicacao_mobile/Models/user_model.dart';
 
-class EditarDadoDialog extends StatefulWidget {
+class ComentDialog extends StatefulWidget {
   final String forumId;
 
-  EditarDadoDialog(this.forumId);
+  ComentDialog(this.forumId);
 
   @override
-  _EditarDadoDialogState createState() => _EditarDadoDialogState();
+  _ComentDialogState createState() => _ComentDialogState();
 }
 
-class _EditarDadoDialogState extends State<EditarDadoDialog> {
+class _ComentDialogState extends State<ComentDialog> {
   String comentario = '';
-  final dbService = DatabaseService();
+  final dbService = UserDatabaseService();
 
   @override
   Widget build(BuildContext context) {
