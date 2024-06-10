@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:aplicacao_mobile/components/forum_button.dart';
 import 'package:aplicacao_mobile/Telas/login.dart';
 import 'package:aplicacao_mobile/Telas/perfil.dart';
+import 'package:aplicacao_mobile/Telas/presenca.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 void main() => runApp(const HomePageApp());
@@ -39,6 +40,7 @@ class HomePageState extends State<HomePage> {
   String ticket = "";
   List<ForumButton> foruns = List.empty();
   
+  
 
   void tapItem(int index) {
     setState(() {
@@ -71,7 +73,9 @@ class HomePageState extends State<HomePage> {
             builder: (context) => Settings(userId: widget.userId)));
   }
 
-  readQrCode() async {// Quando der alguem testa se isso ta funcionando
+  
+
+  readQrCode() async {
     print("entrou");
     String code = await FlutterBarcodeScanner.scanBarcode(
       "#FFFFFF",
@@ -80,7 +84,28 @@ class HomePageState extends State<HomePage> {
       ScanMode.QR,
     );
     setState(() => ticket = code != "-1" ? code : "Não validado");
+
+    Map<String, Widget Function(BuildContext)> routes = {
+      "home": (context) => HomePage(userId: widget.userId),
+      "config": (context) => Settings(userId: widget.userId),
+      "Presença": (context) => PresencePage(userId: widget.userId),
+      "Presenca": (context) => PresencePage(userId: widget.userId),
+      "presenca": (context) => PresencePage(userId: widget.userId),
+      "presença": (context) => PresencePage(userId: widget.userId),
+    };
+
+    if (routes.containsKey(ticket)) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => routes[ticket]!(context)),
+      );
+    } else {
+      // Handle case where QR code value does not match any route
+      print("QR code não corresponde a nenhuma rota.");
+    }
   }
+
+  
 
 //   Widget imprimirForuns(List<ForumButton> foruns) {
 //   return Column(

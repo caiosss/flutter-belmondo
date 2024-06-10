@@ -33,6 +33,7 @@ class Settings extends StatefulWidget {
 class SettingsState extends State<Settings> {
    String name = '';
    String email = '';
+   String id = '';
 
   @override
   void initState() {

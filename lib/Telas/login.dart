@@ -79,115 +79,119 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          ClipPath(
-            clipper: BackgroundWaveClipper(),
-            child: Center(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 300,
-                decoration:
-                    const BoxDecoration(color: Color.fromARGB(255, 2, 40, 70)),
-              ),
-            ),
-          ),
-          const Text(
-            "Login",
-            style: TextStyle(
-                fontSize: 37.1,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Poppins'),
-          ),
-          const SizedBox(height: 14),
-          const Text(
-            "Logue para continuar",
-            style: TextStyle(
-                fontSize: 13.2, fontWeight: FontWeight.w300, fontFamily: "Poppins"),
-          ),
-          const SizedBox(height: 55),
-          Container(
-            width: 344,
-            height: 65,
-            child: TextField(
-              decoration: const InputDecoration(
-                  labelText: "E-mail",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(40)))),
-              onChanged: (text) {
-                setState(() {
-                  email = text;
-                });
-              },
-            ),
-          ),
-          const SizedBox(height: 55),
-          Container(
-            width: 344,
-            height: 65,
-            child: TextField(
-              decoration: const InputDecoration(
-                  labelText: "Senha",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(40)))),
-              onChanged: (text) {
-                setState(() {
-                  password = text;
-                });
-              },
-              obscureText: true,
-            ),
-          ),
-          const SizedBox(height: 38),
-          Container(
-            width: 339,
-            height: 63,
-            child: ElevatedButton(
-              onPressed: toHomePage,
-              child: const Text(
-                "Login",
-                style: TextStyle(
-                    fontSize: 26.1,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Poppins",
-                    color: Colors.white),
-              ),
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ClipPath(
+              clipper: BackgroundWaveClipper(),
+              child: Center(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 300,
+                  decoration:
+                      const BoxDecoration(color: Color.fromARGB(255, 2, 40, 70)),
                 ),
-                backgroundColor: const Color.fromARGB(255, 2, 40, 70),
               ),
             ),
-          ),
-          const SizedBox(height: 65),
-          Builder(
-            builder: (context) => TextButton(
-              child: const Text("Esqueceu a senha?",
-                  style: TextStyle(
-                      fontSize: 13.2,
-                      fontWeight: FontWeight.w300,
-                      fontFamily: 'Poppins')),
-              onPressed: () {
-                // Handle forgot password
-              },
+            const Text(
+              "Login",
+              style: TextStyle(
+                  fontSize: 37.1,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Poppins'),
             ),
-          ),
-          const SizedBox(height: 5),
-          Builder(
-            builder: (context) => TextButton(
-              child: const Text("Cadastre-se!",
-                  style: TextStyle(
-                      fontSize: 13.2,
-                      fontWeight: FontWeight.w300,
-                      fontFamily: 'Poppins')),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => TelaCadastro()));
-              },
+            const SizedBox(height: 14),
+            const Text(
+              "Logue para continuar",
+              style: TextStyle(
+                  fontSize: 13.2,
+                  fontWeight: FontWeight.w300,
+                  fontFamily: "Poppins"),
             ),
-          ),
-        ],
+            const SizedBox(height: 55),
+            Container(
+              width: 344,
+              height: 65,
+              child: TextField(
+                decoration: const InputDecoration(
+                    labelText: "E-mail",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(40)))),
+                onChanged: (text) {
+                  setState(() {
+                    email = text;
+                  });
+                },
+              ),
+            ),
+            const SizedBox(height: 55),
+            Container(
+              width: 344,
+              height: 65,
+              child: TextField(
+                decoration: const InputDecoration(
+                    labelText: "Senha",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(40)))),
+                onChanged: (text) {
+                  setState(() {
+                    password = text;
+                  });
+                },
+                obscureText: true,
+              ),
+            ),
+            const SizedBox(height: 38),
+            Container(
+              width: 339,
+              height: 63,
+              child: ElevatedButton(
+                onPressed: toHomePage,
+                child: const Text(
+                  "Login",
+                  style: TextStyle(
+                      fontSize: 26.1,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Poppins",
+                      color: Colors.white),
+                ),
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  backgroundColor: const Color.fromARGB(255, 2, 40, 70),
+                ),
+              ),
+            ),
+            const SizedBox(height: 30),
+            Builder(
+              builder: (context) => TextButton(
+                child: const Text("Esqueceu a senha?",
+                    style: TextStyle(
+                        fontSize: 13.2,
+                        fontWeight: FontWeight.w300,
+                        fontFamily: 'Poppins')),
+                onPressed: () {
+                  // Handle forgot password
+                },
+              ),
+            ),
+            const SizedBox(height: 5),
+            Builder(
+              builder: (context) => TextButton(
+                child: const Text("Cadastre-se!",
+                    style: TextStyle(
+                        fontSize: 13.2,
+                        fontWeight: FontWeight.w300,
+                        fontFamily: 'Poppins')),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => TelaCadastro()));
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

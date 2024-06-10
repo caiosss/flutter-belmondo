@@ -188,7 +188,7 @@ class ProfileState extends State<Profile> {
         Row(
           children: [
             ForumButton("Forum 1", () {}),
-            const SizedBox(width: 27),
+            const SizedBox(width: 15),
             ForumButton("Forum 2", () {}),
           ],
         ),
@@ -196,7 +196,7 @@ class ProfileState extends State<Profile> {
         Row(
           children: [
             ForumButton("Forum 3", () {}),
-            const SizedBox(width: 27),
+            const SizedBox(width: 15),
             ForumButton("Forum 4", () {}),
           ],
         ),
