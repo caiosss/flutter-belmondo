@@ -27,54 +27,57 @@ class App extends StatelessWidget {
   }
 }
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final dbService = UserDatabaseService();
+  _SearchPageState createState() => _SearchPageState();
+}
 
-    String email = "";
-    String password = "";
+class _SearchPageState extends State<SearchPage> {
+  final dbService = UserDatabaseService();
+  String email = "";
+  String password = "";
 
-
-    void toHomePage() async {
-      if (!email.contains('@') || password.isEmpty) {
-        showDialog(
-            context: context,
-            builder: (context) => DialogBox("Formato Email ou Senha inválido!"));
-      } else {
-        Future<List<UserModel>> usersFuture = dbService.getUsers();
-        List<UserModel> users = await usersFuture;
-        bool found = false;
-        int index = 0;
-        for (int i = 0; i < users.length; i++) {
-          if (users.elementAt(i).email == email) {
-            found = true;
-            index = i;
-          }
+  void toHomePage() async {
+    if (!email.contains('@') || password.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (context) => DialogBox("Formato Email ou Senha inválido!"));
+    } else {
+      Future<List<UserModel>> usersFuture = dbService.getUsers();
+      List<UserModel> users = await usersFuture;
+      bool found = false;
+      int index = 0;
+      for (int i = 0; i < users.length; i++) {
+        if (users.elementAt(i).email == email) {
+          found = true;
+          index = i;
         }
-        if (found) {
-          if (users.elementAt(index).email == email &&
-              users.elementAt(index).password == password) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        HomePage(userId: users.elementAt(index).id)));
-          } else {
-            showDialog(
-                context: context,
-                builder: (context) => DialogBox("Email ou Senha inválido!"));
-          }
+      }
+      if (found) {
+        if (users.elementAt(index).email == email &&
+            users.elementAt(index).password == password) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      HomePage(userId: users.elementAt(index).id)));
         } else {
           showDialog(
               context: context,
-              builder: (context) => DialogBox("Usuário não encontrado"));
+              builder: (context) => DialogBox("Email ou Senha inválido!"));
         }
+      } else {
+        showDialog(
+            context: context,
+            builder: (context) => DialogBox("Usuário não encontrado"));
       }
     }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
@@ -112,7 +115,9 @@ class SearchPage extends StatelessWidget {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(40)))),
               onChanged: (text) {
-                email = text;
+                setState(() {
+                  email = text;
+                });
               },
             ),
           ),
@@ -126,7 +131,9 @@ class SearchPage extends StatelessWidget {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(40)))),
               onChanged: (text) {
-                password = text;
+                setState(() {
+                  password = text;
+                });
               },
               obscureText: true,
             ),
@@ -162,7 +169,7 @@ class SearchPage extends StatelessWidget {
                       fontWeight: FontWeight.w300,
                       fontFamily: 'Poppins')),
               onPressed: () {
-                    
+                // Handle forgot password
               },
             ),
           ),
