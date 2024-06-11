@@ -1,9 +1,9 @@
 import 'package:aplicacao_mobile/Models/coment_database_service.dart';
 import 'package:aplicacao_mobile/Models/user_database_service.dart';
-import 'package:aplicacao_mobile/Models/coment_model.dart';
 import 'package:aplicacao_mobile/Models/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 void main() => runApp(const ForumApp());
 
@@ -33,17 +33,30 @@ class ForumState extends State<Forum> {
   final double coverHeight = 274;
   final double forumHeight = 144;
   final double forumWidth = 180;
-  String comentario = "";
+  final TextEditingController contentContoller = TextEditingController();
   final comentDbService = ComentDatabaseService();
   final userDbService = UserDatabaseService();
   String userName = "";
-
+  int comentId = 0;
+  
+  List<dynamic> comentarios = [];
+  
   @override
   void initState() {
     super.initState();
     getUserName();
+    fetchData();
   }
 
+  Future<void> fetchData() async {
+    final response = await http.get(Uri.parse('https://belmondojr.dev/consultas_moveis/consulta_iury.php?action=foruns'));
+     if (response.statusCode == 200) {
+      setState(() {
+        comentarios = json.decode(response.body);
+      });
+    }
+  }
+  
   Future<void> getUserName() async {
     List<UserModel> usuarios = await userDbService.getUsers();
     for (int i = 0; i < usuarios.length; i++) {
@@ -55,31 +68,25 @@ class ForumState extends State<Forum> {
     }
   }
 
-  Future<void> comentar(String comentario) async {
-    if (comentario.isEmpty) {
-      return;
+  Future<void> comentar() async {
+    comentId = comentarios.length + 1;
+    final response = await http.post(
+      Uri.parse('https://belmondojr.dev/consultas_moveis/consulta_iury.php?action=foruns'),
+      body: {
+        'id': comentId.toString(),
+        'forum_id': widget.forumId,
+        'content': contentContoller,
+        'user_name': userName
+      },);
+      
+      if (response.statusCode == 200) {
+      print("deu certo");
     } else {
-      var id;
-      List<ComentModel> comentarios = await comentDbService.getComents();
-      id = comentarios.length + 1;
-      var coment = ComentModel(
-        forumId: widget.forumId,
-        content: comentario,
-        userName: userName,
-        id: id.toString(),
-      );
-      await comentDbService.insertComent(coment);
-      setState(() {});
+      print('Erro ao adicionar o usuário: ${response.statusCode}');
     }
   }
 
-  void controleOnsubmit(comentario) {
-    comentar(comentario).then((_) {
-      setState(() {
-        this.comentario = "";
-      });
-    });
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -128,28 +135,17 @@ class ForumState extends State<Forum> {
       );
 
   Widget buildCommentSectiom() {
-    return FutureBuilder<List<ComentModel>>(
-      future: comentDbService.getComents(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return const Center(child: Text('Erro ao carregar comentários'));
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text('Nenhum comentário nesse Forum'));
-        } else {
-          List<ComentModel> comentarios = snapshot.data!;
-          return ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: comentarios.length,
-            itemBuilder: (context, index) {
-              if (comentarios[index].forumId == widget.forumId) {
-                return ListTile(
-                  title: Text(comentarios[index].userName),
-                  subtitle: Text(comentarios[index].content),
-                  trailing: comentarios[index].userName == userName
-                      ? IconButton(
+    return ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: comentarios.length,
+        itemBuilder: (context, index) {
+          final comentario = comentarios[index];
+          if(comentario['forum_id'] == widget.forumId){
+              return ListTile(
+              title: Text('${comentario['user_name']}'),
+              subtitle: Text('CPF: ${comentario['content']}'),
+              trailing: comentario['user_name'] == userName ? IconButton(
                           icon: Icon(Icons.delete),
                           onPressed: () {
                             comentDbService.deleteComent(comentarios[index].id);
@@ -157,15 +153,15 @@ class ForumState extends State<Forum> {
                           },
                         )
                       : null,
-                );
-              } else {
-                return Container();
-              }
-            },
-          );
-        }
-      },
-    );
+                   
+            );
+          } else {
+            return Container();
+          }
+          
+        },
+      );
+      
   }
 
   Widget buildContent() => Container(
@@ -195,20 +191,19 @@ class ForumState extends State<Forum> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  child: TextField(
+                  child: Column(children: [
+                    TextField(
                     decoration: InputDecoration(
-                      labelText: "Digite..",
+                      labelText: "Comentario",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(40)),
                       ),
                     ),
-                    onChanged: (text) {
-                      setState(() {
-                        comentario = text;
-                      });
-                    },
-                    onSubmitted: controleOnsubmit,
+                    controller: contentContoller,
+                    
                   ),
+                  ElevatedButton(onPressed: comentar, child: Text("Comentar"))
+                  ],)
                 ),
               ],
             ),
