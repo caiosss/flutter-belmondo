@@ -92,6 +92,9 @@ class HomePageState extends State<HomePage> {
       "Presenca": (context) => PresencePage(userId: widget.userId),
       "presenca": (context) => PresencePage(userId: widget.userId),
       "presença": (context) => PresencePage(userId: widget.userId),
+      "https://www.google.com/" : (context) => PresencePage(userId: widget.userId),
+      "https://www.google.com" : (context) => PresencePage(userId: widget.userId),
+      "www.google.com" : (context) => PresencePage(userId: widget.userId),
     };
 
     if (routes.containsKey(ticket)) {
