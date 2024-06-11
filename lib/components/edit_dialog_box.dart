@@ -61,6 +61,7 @@ class _EditarDadoDialogState extends State<EditarDadoDialog> {
                 user = UserModel(id: widget.id.toString(), name: widget.nome, email: _novoAtributo, password: widget.senha, isAdm: widget.isAdm);
                 dbService.editUser(user);
             }
+            Navigator.of(context).pop();
           },
         ),
       ],

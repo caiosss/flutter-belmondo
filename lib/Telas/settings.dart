@@ -5,7 +5,11 @@ import 'package:aplicacao_mobile/components/icone_botao.dart';
 import 'package:flutter/material.dart';
 import 'package:aplicacao_mobile/components/information_container.dart';
 import 'package:aplicacao_mobile/components/settings_container.dart';
+import 'package:aplicacao_mobile/components/switch_container.dart';
 import 'package:aplicacao_mobile/Telas/home_page.dart';
+import 'package:aplicacao_mobile/components/dialog_box.dart';
+import 'package:aplicacao_mobile/components/edit_dialog.dart';
+
 
 void main() => runApp(const SettingsApp());
 
@@ -33,7 +37,12 @@ class Settings extends StatefulWidget {
 class SettingsState extends State<Settings> {
    String name = '';
    String email = '';
+   String password = '';
    String id = '';
+   bool isAdm = false;
+   bool _isSwitchedNotification = false;
+   bool _isSwitchedAcessibilty = false;
+
 
   @override
   void initState() {
@@ -49,6 +58,9 @@ class SettingsState extends State<Settings> {
           setState(() {
             name = user.name;
             email = user.email;
+            password = user.password;
+            isAdm = user.isAdm;
+            id = user.id;
           });
           break;
         }
@@ -57,6 +69,13 @@ class SettingsState extends State<Settings> {
 
   void toHomePage() {
     Navigator.push(context, MaterialPageRoute(builder: (context)=>(HomePage(userId: widget.userId))));
+  }
+
+  void _showEditDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => EditDialog(name, email, password, isAdm, id),
+    );
   }
 
   @override
@@ -118,16 +137,30 @@ class SettingsState extends State<Settings> {
               const SizedBox(
                 height: 12.0,
               ),
-              SetContainer("  Notificações", IconeBotao(const Icon(Icons.notifications),() {},)),
-              SetContainer("  Editar perfil", IconeBotao(const Icon(Icons.arrow_forward_ios_rounded),() {},)),
+              SwitchContainer("  Notificações", 
+                Switch(
+                  value: _isSwitchedNotification, 
+                  onChanged: (value){
+                    setState(() {
+                      _isSwitchedNotification = value;
+                    });
+                  },)),
+              SizedBox(height: 12,),
+              SetContainer("  Editar perfil", IconeBotao(const Icon(Icons.arrow_forward_ios_rounded),_showEditDialog,)),
               const SizedBox(
                 height: 12.0,
               ),
-              InfoContainer("  Acessibilidade"),
+              SwitchContainer("  Acessibilidade", Switch(
+                  value: _isSwitchedAcessibilty, 
+                  onChanged: (value){
+                    setState(() {
+                      _isSwitchedAcessibilty
+                       = value;
+                    });
+                  },)),
               const SizedBox(
                 height: 12.0,
               ),
-              SetContainer("  Ativar", IconeBotao(const Icon(Icons.arrow_forward_ios_rounded),() {},)),
               const SizedBox(
                 height: 12.0,
               ),
@@ -135,7 +168,11 @@ class SettingsState extends State<Settings> {
               const SizedBox(
                 height: 12.0,
               ),
-              SetContainer("  Contato", IconeBotao(const Icon(Icons.arrow_forward_ios_rounded),() {},)),
+              SetContainer("  Contato", IconeBotao(const Icon(Icons.arrow_forward_ios_rounded),() {
+                showDialog(
+                  context: context,
+                  builder: (context) => DialogBox("Entre em contato com o suporte:\n +55 85 9 77777777"));
+              },)),
               SetContainer("  FAQ", IconeBotao(const Icon(Icons.arrow_forward_ios_rounded),() {},)),
             ],
           ),
