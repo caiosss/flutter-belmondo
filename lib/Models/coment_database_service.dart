@@ -39,19 +39,19 @@ class ComentDatabaseService {
 
   Future<void> insertComent(ComentModel coment) async {
     final db = await _databaseService.database;
-    var data = await db.rawInsert('INSERT INTO Users(id, forumId, content, userName) Values(?,?,?,?)', [coment.id,coment.forumId, coment.content, coment.userName]);
+    var data = await db.rawInsert('INSERT INTO Comentarios(id, forumId, content, userName) Values(?,?,?,?)', [coment.id,coment.forumId, coment.content, coment.userName]);
     log('updated $data');
   }
 
   Future<void> editComent(ComentModel coment) async {
     final db = await _databaseService.database;
-    var data = await db.rawUpdate('UPDATE Users SET forumId=?,content=?,userName=? WHERE id=?', [coment.forumId, coment.content, coment.userName, coment.id]);
+    var data = await db.rawUpdate('UPDATE Comentarios SET forumId=?,content=?,userName=? WHERE id=?', [coment.forumId, coment.content, coment.userName, coment.id]);
     log('updated $data');
   }
 
   Future<void> deleteComent(String id) async {
       final db = await _databaseService.database;
-      var data = await db.rawDelete('DELETE FROM Users WHERE id=?', [id]);
+      var data = await db.rawDelete('DELETE FROM Comentarios WHERE id=?', [id]);
       log('deleted $data');
   }
  

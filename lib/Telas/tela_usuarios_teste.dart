@@ -40,7 +40,7 @@ class _UserListScreenState extends State<UserListScreen> {
                 final user = users[index];
                 return ListTile(
                   title: Text(user.name),
-                  subtitle: Text(user.email),
+                  subtitle: Text(user.email + ", " + user.isAdm.toString()),
                   
                 );
               },
