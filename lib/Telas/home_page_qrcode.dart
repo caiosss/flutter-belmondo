@@ -162,14 +162,14 @@ class HomePageState extends State<HomePage> {
               ForumButton("Forum 1", () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Forum(forumId: 1, userId: widget.userId,)));// Falta a imagem do forum
-              }),
+              },"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1200px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"),
               const SizedBox(
                 width: 33.0,
               ),
               ForumButton("Forum 2", () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Forum(forumId: 2, userId: widget.userId,)));// Falta a imagem do forum
-              }),
+              },"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1200px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"),
             const SizedBox(
               height: 50.0,
             ),
@@ -178,14 +178,14 @@ class HomePageState extends State<HomePage> {
               ForumButton("Forum 3", () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Forum(forumId: 3, userId: widget.userId,)));// Falta a imagem do forum
-              }),
+              },"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1200px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"),
               const SizedBox(
                 width: 33.0,
               ),
               ForumButton("Forum 4", () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Forum(forumId: 4, userId: widget.userId,)));// Falta a imagem do forum
-              }),
+              },"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1200px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"),
             const SizedBox(
               height: 50.0,
             ),
@@ -194,14 +194,14 @@ class HomePageState extends State<HomePage> {
               ForumButton("Forum 5", () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Forum(forumId: 5, userId: widget.userId,)));// Falta a imagem do forum
-              }),
+              },"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1200px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"),
               const SizedBox(
                 width: 33.0,
               ),
               ForumButton("Forum 6", () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Forum(forumId: 6, userId: widget.userId,)));// Falta a imagem do forum
-              }),
+              },"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1200px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"),
             ]),
         ],
       )),

@@ -187,17 +187,17 @@ class ProfileState extends State<Profile> {
         const SizedBox(height: 20),
         Row(
           children: [
-            ForumButton("Forum 1", () {}),
+            ForumButton.semImagem("Forum 1", () {}),
             const SizedBox(width: 15),
-            ForumButton("Forum 2", () {}),
+            ForumButton.semImagem("Forum 2", () {}),
           ],
         ),
         const SizedBox(height: 30),
         Row(
           children: [
-            ForumButton("Forum 3", () {}),
+            ForumButton.semImagem("Forum 3", () {}),
             const SizedBox(width: 15),
-            ForumButton("Forum 4", () {}),
+            ForumButton.semImagem("Forum 4", () {}),
           ],
         ),
       ],

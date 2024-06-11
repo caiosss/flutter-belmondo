@@ -90,31 +90,31 @@ class _BottomNavigationBarExampleState
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            ForumButton("Forum 1", () {}),
+            ForumButton("Forum 1", () {},"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1200px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"),
             const SizedBox(
               width: 33.0,
             ),
-            ForumButton("Forum 2", () {}),
+            ForumButton("Forum 2", () {},"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1200px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"),
           ]),
           const SizedBox(
             height: 50.0,
           ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            ForumButton("Forum 3", () {}),
+            ForumButton("Forum 3", () {},"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/300px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"),
             const SizedBox(
               width: 33.0,
             ),
-            ForumButton("Forum 4", () {}),
+            ForumButton("Forum 4", () {},"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1200px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"),
           ]),
           const SizedBox(
             height: 50.0,
           ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            ForumButton("Forum 5", () {}),
+            ForumButton("Forum 5", () {},"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1200px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"),
             const SizedBox(
               width: 33.0,
             ),
-            ForumButton("Forum 6", () {}),
+            ForumButton("Forum 6", () {},"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1200px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"),
           ]),
         ],
       )),
